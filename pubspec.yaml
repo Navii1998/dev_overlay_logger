@@ -1,0 +1,24 @@
+name: dev_overlay_logger
+description: Floating in-app overlay that shows developer logs and Dio API calls over your Flutter app, with copy-as-cURL and header masking.
+version: 0.1.0
+repository: https://github.com/Navii1998/dev_overlay_logger
+issue_tracker: https://github.com/Navii1998/dev_overlay_logger/issues
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.19.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Only network/dio_interceptor.dart may import this. It moves to
+  # dev_overlay_logger_dio when the package is split into an SDK.
+  dio: ">=5.4.0 <5.10.0"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

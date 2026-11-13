@@ -1,0 +1,15 @@
+name: dev_overlay_logger_example
+description: Demo of the dev_overlay_logger overlay on a small home screen.
+publish_to: none
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dev_overlay_logger:
+    path: ../
+
+flutter:
+  uses-material-design: true

@@ -1,0 +1,84 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+*.swo
+*~
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ / Android Studio
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code local settings. Add a shared launch.json with `git add -f` if you want it in the repo.
+.vscode/
+
+# Dart / Flutter tooling
+**/.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub/
+.pub-cache/
+**/build/
+coverage/
+**/doc/api/
+
+# Symbolication and obfuscation
+app.*.symbols
+app.*.map.json
+
+# Library packages do not commit the lockfile; the host app pins versions.
+# The example app is an application, so example/pubspec.lock is committed.
+/pubspec.lock
+
+# Android
+**/android/.gradle/
+**/android/captures/
+**/android/local.properties
+**/android/key.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/.cxx/
+**/android/app/debug/
+**/android/app/profile/
+**/android/app/release/
+*.jks
+*.keystore
+
+# iOS / macOS
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework/
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/.last_build_id
+**/macos/Pods/
+**/macos/Flutter/ephemeral/
+**/Flutter/ephemeral/
+**/DerivedData/
+**/xcuserdata/
+*.xcuserstate
+*.dSYM/
+*.dSYM.zip
+
+# Linux / Windows ephemeral plugin output
+**/linux/flutter/ephemeral/
+**/windows/flutter/ephemeral/
+
+# FVM: keep .fvmrc if you add one; never commit the SDK checkout.
+.fvm/flutter_sdk
+
+# Secrets and local env files must never be committed
+.env
+.env.*
+*.env
