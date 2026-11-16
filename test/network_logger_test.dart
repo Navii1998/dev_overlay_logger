@@ -34,6 +34,41 @@ void main() {
     );
   });
 
+  test('setCaptureEnabled pauses capture and resumes into the same store', () {
+    DevLogger.e('kept');
+    final store = DevLogger.store;
+    expect(store.errorCount.value, 1);
+    expect(DevLogger.captureEnabledValue, isTrue);
+
+    DevLogger.setCaptureEnabled(false);
+    expect(DevLogger.captureEnabledValue, isFalse);
+    expect(DevLogger.enabled, isFalse);
+    DevLogger.d('dropped');
+    NetworkLogger.record(
+      method: 'GET',
+      uri: Uri.parse('https://api.example.com/v1/dropped'),
+      status: 200,
+    );
+    expect(store.logs.map((entry) => entry.message), ['kept']);
+    expect(store.network, isEmpty);
+    expect(store.errorCount.value, 1);
+    expect(identical(DevLogger.store, store), isTrue);
+
+    DevLogger.setCaptureEnabled(true);
+    expect(DevLogger.captureEnabledValue, isTrue);
+    expect(DevLogger.enabled, isTrue);
+    DevLogger.d('again');
+    NetworkLogger.record(
+      method: 'POST',
+      uri: Uri.parse('https://api.example.com/v1/again'),
+      status: 201,
+    );
+    expect(identical(DevLogger.store, store), isTrue);
+    expect(store.logs.map((entry) => entry.message), contains('again'));
+    expect(store.network.single.uri.path, '/v1/again');
+    expect(store.errorCount.value, 1);
+  });
+
   test('status 400 and fail() are error lines', () {
     final failed = NetworkLogger.start(
       method: 'GET',

@@ -28,6 +28,8 @@ Other HTTP stacks call `NetworkLogger.start` / `complete` / `fail`, or `NetworkL
 
 Set `DevLoggerConfig.capturePrint` and wrap startup in `DevLogger.runZoned` to mirror `print`.
 
+The host can hide this package's floating pill with `showMinimizedButton: false`. `DevLogger.show()` still opens the panel, and `DevLogger.panelOpen` is true while that panel is locked or interactive. `DevLogger.setCaptureEnabled(false)` stops capture without discarding the store. `DevLogger.setCaptureEnabled(true)` records into the same store.
+
 ## Gesture
 
 - Hold the slab 500 ms to unlock. A blue bar fills the slab while you hold.
@@ -41,7 +43,7 @@ Set `DevLoggerConfig.capturePrint` and wrap startup in `DevLogger.runZoned` to m
 
 ```yaml
 dependencies:
-  dev_overlay_logger: ^0.1.0
+  dev_overlay_logger: ^0.2.0
 ```
 
 The logger starts only in debug and profile builds by default. Release builds stay silent unless you set `enabled: true` yourself.

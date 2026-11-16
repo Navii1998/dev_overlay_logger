@@ -47,5 +47,25 @@ void main() {
     DevLogger.init(const DevLoggerConfig(enabled: false));
     DevLogger.e('nope');
     expect(DevLogger.enabled, isFalse);
+    expect(DevLogger.captureEnabledValue, isFalse);
+    expect(DevLogger.panelOpen.value, isFalse);
+  });
+
+  test('setCaptureEnabled does nothing when no store exists', () {
+    expect(DevLogger.captureEnabledValue, isFalse);
+    DevLogger.setCaptureEnabled(true);
+    expect(DevLogger.captureEnabledValue, isFalse);
+    expect(DevLogger.panelOpen.value, isFalse);
+
+    DevLogger.init(const DevLoggerConfig(enabled: false));
+    DevLogger.setCaptureEnabled(true);
+    expect(DevLogger.captureEnabledValue, isFalse);
+    expect(DevLogger.enabled, isFalse);
+
+    DevLogger.init(config());
+    DevLogger.setCaptureEnabled(false);
+    DevLogger.init(config());
+    expect(DevLogger.captureEnabledValue, isTrue);
+    expect(DevLogger.enabled, isTrue);
   });
 }
