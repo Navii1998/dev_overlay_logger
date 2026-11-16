@@ -17,7 +17,9 @@ import 'package:flutter/material.dart';
 /// ```
 ///
 /// When the logger is disabled or [DevLoggerConfig.showOverlay] is false, this
-/// returns [child] and builds nothing else.
+/// returns [child] and builds nothing else. Pausing capture does not remove it.
+/// When [DevLoggerConfig.showMinimizedButton] is false, minimised mode draws
+/// nothing except a toast and does not block taps.
 class DevLoggerOverlay extends StatefulWidget {
   /// Creates an overlay around [child].
   const DevLoggerOverlay({
@@ -40,7 +42,8 @@ class _DevLoggerOverlayState extends State<DevLoggerOverlay> {
   OverlayController? _controller;
   OverlayEntry? _entry;
 
-  bool get _active => DevLogger.enabled && DevLogger.config.showOverlay;
+  /// Mounts from the init config. The capture switch does not mount or remove this.
+  bool get _active => DevLogger.config.enabled && DevLogger.config.showOverlay;
 
   @override
   void initState() {
@@ -87,18 +90,21 @@ class _DevLoggerOverlayState extends State<DevLoggerOverlay> {
   Widget _buildLayer(BuildContext context) {
     final controller = _controller!;
     final minimised = controller.mode == OverlayMode.minimized;
+    final showButton = minimised && DevLogger.config.showMinimizedButton;
+    final layer = Stack(
+      fit: StackFit.expand,
+      children: [
+        if (!minimised) LoggerPanel(controller: controller),
+        if (showButton) FloatingLoggerButton(controller: controller),
+        LoggerToast(message: controller.toast),
+      ],
+    );
     return LoggerThemeScope(
       theme: widget.theme,
       child: Material(
         type: MaterialType.transparency,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            if (!minimised) LoggerPanel(controller: controller),
-            if (minimised) FloatingLoggerButton(controller: controller),
-            LoggerToast(message: controller.toast),
-          ],
-        ),
+        // No pill in this mode: the layer stays up for a toast but must not take taps.
+        child: showButton || !minimised ? layer : IgnorePointer(child: layer),
       ),
     );
   }

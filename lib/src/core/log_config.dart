@@ -28,6 +28,7 @@ class DevLoggerConfig {
     this.initialDock = DockPosition.bottom,
     this.initialHeightFraction = 0.5,
     this.startMinimized = true,
+    this.showMinimizedButton = true,
     this.redactHeaders = const [
       'authorization',
       'cookie',
@@ -61,8 +62,15 @@ class DevLoggerConfig {
   /// Edge the panel opens on.
   final DockPosition initialDock;
 
-  /// When true the overlay opens as the floating button. Tap it to restore the panel.
+  /// When true the overlay opens minimised.
+  ///
+  /// The floating button is shown unless [showMinimizedButton] is false.
   final bool startMinimized;
+
+  /// When false, minimised mode draws no floating button and does not block taps.
+  ///
+  /// [DevLogger.show] still restores the panel. Defaults to true.
+  final bool showMinimizedButton;
 
   /// Opening height as a fraction of the screen. `0.5` is the bottom half.
   final double initialHeightFraction;

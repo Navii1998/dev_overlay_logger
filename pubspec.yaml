@@ -1,6 +1,6 @@
 name: dev_overlay_logger
 description: Floating in-app overlay that shows developer logs and Dio API calls over your Flutter app, with copy-as-cURL and header masking.
-version: 0.1.0
+version: 0.2.0
 repository: https://github.com/Navii1998/dev_overlay_logger
 issue_tracker: https://github.com/Navii1998/dev_overlay_logger/issues
 
